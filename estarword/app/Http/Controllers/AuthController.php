@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -15,7 +16,7 @@ class AuthController extends Controller
             $auth = Auth::user();
             // return $auth;
             //$tokenResult = $auth->createToken('LaravelSanctumAuth');
-            $tokenResult = $auth->createToken('LaravelSanctumAuth', ['administrador', 'gestor']);
+            $tokenResult = $auth->createToken('LaravelSanctumAuth', [$auth->rol]);
 
             // Actualizar expiración
             // $hours = (int) env('SANCTUM_EXPIRATION_HOURS', 2);
@@ -58,19 +59,19 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'rol' => $request->role,
+            'password' => $request->password,
+            'rol' => $request->rol,
         ]);
 
         // Crear el token asignando su rol como 'ability'
         // Esto es crucial para la autorización.
-        $token = $user->createToken('api-token', [$user->role])->plainTextToken;
+        $token = $user->createToken('api-token', [$user->rol])->plainTextToken;
 
         $success = [
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
-            'rol' => $user->role,
+            'rol' => $user->rol,
             'token' => $token,
         ];
 

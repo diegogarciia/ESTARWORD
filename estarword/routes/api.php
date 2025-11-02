@@ -21,8 +21,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
     // --- Gestión de Usuarios (SOLO ADMIN) ---
-    // (index, show, update, destroy)
-    Route::apiResource('usuarios', UserController::class)->middleware('solo:administrador');
+    Route::get('/usuarios', [UserController::class, 'index'])->middleware('solo:administrador');
+    Route::get('/usuario/{id}', [UserController::class, 'show'])->middleware('solo:administrador');
+    Route::put('/actualizarUsuario/{id}', [UserController::class, 'update'])->middleware('solo:administrador');
+    Route::post('/generarUsuario', [UserController::class, 'store'])->middleware('solo:administrador');
+    Route::delete('/eliminarUsuario/{id}', [UserController::class, 'destroy'])->middleware('solo:administrador');
 
     // --- CRUD de Naves Estelares ---
     // (index, show) -> Accesible para todos los roles

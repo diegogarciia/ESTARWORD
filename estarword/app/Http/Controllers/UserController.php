@@ -22,7 +22,7 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $usuario = Mantenimiento::find($id);
+        $usuario = User::find($id);
         if (is_null($usuario)) {
             return response()->json("Usuario no encontrado",404);
         }

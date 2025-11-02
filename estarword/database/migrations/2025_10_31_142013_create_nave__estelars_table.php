@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('tripulacion')->nullable();
             $table->string('pasajeros')->nullable();
             $table->string('clase_nave')->nullable();
+            $table->foreignId('id_planeta');
+            $table->foreignId('id_piloto');
             $table->timestamps();
         });
     }

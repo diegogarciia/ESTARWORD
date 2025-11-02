@@ -18,25 +18,27 @@ class Nave_Estelar extends Model
         'tripulacion',
         'pasajeros',
         'clase_nave',
+        'id_planeta',
+        'id_piloto',
     ];
 
     // RELACIÓN: Una Nave Estelar pertenece a un Planeta (Muchos a Uno)
     public function planeta()
     {
-        return $this->belongsTo(Planeta::class);
+        return $this->belongsTo(Planeta::class, 'id');
     }
 
     // RELACIÓN: Una Nave Estelar tiene muchos Mantenimientos (Uno a Muchos)
     public function mantenimientos()
     {
-        return $this->hasMany(Mantenimiento::class);
+        return $this->hasMany(Mantenimiento::class, 'id_nave_estelar');
     }
 
     // RELACIÓN: Una Nave Estelar tiene varios Pilotos (Muchos a Muchos)
     public function pilotos()
     {
         // Se define la tabla pivote y se incluyen las columnas extra
-        return $this->belongsToMany(Piloto::class, 'piloto_nave')
+        return $this->belongsToMany(Piloto::class, 'piloto_nave', 'id_nave_estelar', 'id_piloto')
                     ->withPivot('fecha_inicio', 'fecha_fin')
                     ->withTimestamps();
     }

@@ -22,7 +22,7 @@ class Mantenimiento extends Model
     // RELACIÓN: Un Mantenimiento pertenece a una Nave Estelar (Muchos a Uno)
     public function naveEstelar()
     {
-        return $this->belongsTo(NaveEstelar::class);
+        return $this->belongsTo(NaveEstelar::class, 'id_nave_estelar');
     }
     
 }

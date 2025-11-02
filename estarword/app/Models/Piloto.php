@@ -24,7 +24,7 @@ class Piloto extends Model
     public function navesEstelares()
     {
         // Se define la tabla pivote y se incluyen las columnas extra
-        return $this->belongsToMany(NaveEstelar::class, 'piloto_nave')
+        return $this->belongsToMany(NaveEstelar::class, 'piloto_nave', 'id_piloto', 'id_nave_estelar')
                     ->withPivot('fecha_inicio', 'fecha_fin')
                     ->withTimestamps();
     }

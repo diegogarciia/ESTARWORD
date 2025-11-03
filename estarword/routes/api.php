@@ -6,7 +6,8 @@ use App\Http\Controllers\NaveEstelarController;
 use App\Http\Controllers\PilotoController;
 use App\Http\Controllers\MantenimientoController;
 use App\Http\Controllers\PlanetaController;
-use App\Http\Controllers\UserController; 
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ControladorLocal;  
 
 // AUTHCONTROLLER -> LOGIN, REGISTER, LOGOUT
 // EL RESTO DE CONTROLLERS -> INDEX, STORE, SHOW, UPDATE, DESTROY
@@ -78,5 +79,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/naves-sin-piloto', [PilotoController::class, 'navesSinPiloto']);
     Route::get('/pilotos/historialAsignaciones', [PilotoController::class, 'historialAsignacionesPiloto']);
     Route::get('/pilotos/asignacionesActuales', [PilotoController::class, 'asignacionesActualesPiloto']);
+
+    // --- Subir imágen del piloto ---
+    Route::post('/subirlocal', [ControladorLocal::class,'subirImagenLocal'])->middleware('solo:administrador');
+    Route::get('/mostrar/{filename}', [ControladorLocal::class, 'mostrarImagen'])->middleware('solo:administrador');
+    Route::get('/descargar/{filename}', [ControladorLocal::class, 'descargarImagen'])->middleware('solo:administrador');
 
 });

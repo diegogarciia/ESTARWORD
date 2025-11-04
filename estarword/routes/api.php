@@ -53,10 +53,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/naves-estelares/{id_nave_estelar}/asignarPiloto', [PilotoController::class, 'asignarPiloto'])->middleware('varios:administrador,gestor');
     Route::post('/naves-estelares/{id_nave_estelar}/quitarPiloto', [PilotoController::class, 'quitarPiloto'])->middleware('varios:administrador,gestor');
 
-    Route::get('/mantenimientos/buscar/fecha', [MantenimientoController::class, 'listarPorFecha']);
-    Route::get('/naves-sin-piloto', [PilotoController::class, 'navesSinPiloto']);
-    Route::get('/pilotos/historialAsignaciones', [PilotoController::class, 'historialAsignacionesPiloto']);
-    Route::get('/pilotos/asignacionesActuales', [PilotoController::class, 'asignacionesActualesPiloto']);
+    Route::get('/mantenimientos/buscar/fecha', [MantenimientoController::class, 'listarPorFecha'])->middleware('varios:administrador,gestor');
+    Route::get('/naves-sin-piloto', [PilotoController::class, 'navesSinPiloto'])->middleware('varios:administrador,gestor');
+    Route::get('/pilotos/historialAsignaciones', [PilotoController::class, 'historialAsignacionesPiloto'])->middleware('varios:administrador,gestor');
+    Route::get('/pilotos/asignacionesActuales', [PilotoController::class, 'asignacionesActualesPiloto'])->middleware('varios:administrador,gestor');
 
     Route::post('/subirlocal', [ControladorLocal::class,'subirImagenLocal'])->middleware('solo:administrador');
     Route::get('/mostrar/{filename}', [ControladorLocal::class, 'mostrarImagen'])->middleware('solo:administrador');

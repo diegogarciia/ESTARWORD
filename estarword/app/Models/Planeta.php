@@ -19,7 +19,6 @@ class Planeta extends Model
         'clima',
     ];
 
-    // RELACIÓN: Un Planeta tiene muchas Naves Estelares (Uno a Muchos)
     public function navesEstelares()
     {
         return $this->hasMany(NaveEstelar::class);

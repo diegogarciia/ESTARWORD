@@ -19,7 +19,6 @@ class Mantenimiento extends Model
         'coste',
     ];
 
-    // RELACIÓN: Un Mantenimiento pertenece a una Nave Estelar (Muchos a Uno)
     public function naveEstelar()
     {
         return $this->belongsTo(NaveEstelar::class, 'id_nave_estelar');
